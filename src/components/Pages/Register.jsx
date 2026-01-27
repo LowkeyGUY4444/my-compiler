@@ -20,7 +20,7 @@ const Register = () => {
             <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#3B82F6] opacity-10 blur-[120px] rounded-full -z-10"></div>
 
             <header className="h-16 w-full flex items-center justify-between px-10 z-10">
-                <Link to="/" className="text-2xl font-extrabold text-white">Code<span className="text-[#3B82F6]">Verse</span></Link>
+                <Link to="/" className="text-2xl font-extrabold text-white">Code<span className="text-[#3B82F6]">Engine</span></Link>
                 <div className="text-sm">
                     <span className="text-[#94A3B8]">Already have an account? </span>
                     <Link to="/login" className="text-[#3B82F6] font-semibold hover:underline">Log In</Link>

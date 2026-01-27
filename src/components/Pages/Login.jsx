@@ -20,7 +20,7 @@ const Login = () => {
 
             <header className="h-16 w-full flex items-center justify-between px-10 z-10">
                 <Link to="/" className="text-2xl font-extrabold text-white">
-                    Code<span className="text-[#3B82F6]">Verse</span>
+                    Code<span className="text-[#3B82F6]">Engine</span>
                 </Link>
                 <div className="text-sm">
                     <span className="text-[#94A3B8]">Need an account? </span>

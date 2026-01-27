@@ -12,7 +12,7 @@ export default function Navbar() {
         <>
             <nav className="sticky top-0 h-16 w-full flex items-center justify-between px-10 bg-[#1E293B]/80 backdrop-blur-md border-b border-[#334155] z-50">
                 <Link to="/" className="text-2xl font-extrabold text-white">
-                    Code<span className="text-[#3B82F6]">Verse</span>
+                    Code<span className="text-[#3B82F6]">Engine</span>
                 </Link>
 
                 <div className="hidden md:flex space-x-8 text-[#94A3B8] font-medium">
@@ -61,7 +61,7 @@ export default function Navbar() {
                     </div>
 
                     <p className="text-[#64748B] text-xs mt-10 text-center">
-                        Join CodeVerse to track your progress and compete in contests.
+                        Join CodeEngine to track your progress and compete in contests.
                     </p>
                 </div>
             </div>
