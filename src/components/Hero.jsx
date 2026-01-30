@@ -1,5 +1,6 @@
 import { FaPlay } from "react-icons/fa6";
 import heroImage from "../assets/HeroImage.png";
+import { Link } from "react-router-dom";
 
 export default function Hero() {
     return (
@@ -10,10 +11,10 @@ export default function Hero() {
                     <h1 className="text-6xl font-black text-white mt-4 leading-tight">Compile, Run, and Deploy.</h1>
                     <p className="text-[#94A3B8] text-lg mt-6 max-w-lg">Master algorithms with our next-gen online judge. Support for 40+ languages and real-time feedback.</p>
                     <div className="mt-10 flex space-x-4">
-                        <button className="flex items-center justify-center gap-2 bg-white text-[#0F172A] px-8 py-3 rounded-lg font-bold">
+                        <Link to="/playground" className="flex items-center justify-center gap-2 bg-white text-[#0F172A] px-8 py-3 rounded-lg font-bold">
                             <FaPlay />
                             <span>Start Coding</span>
-                        </button>
+                        </Link>
                         <button className="border border-[#334155] text-white px-8 py-3 rounded-lg font-medium hover:bg-white/5">Recent Code</button>
                     </div>
                 </div>

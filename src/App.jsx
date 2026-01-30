@@ -6,6 +6,7 @@ import Home from './components/Pages/Home';
 import Login from './components/Pages/Login';
 import Register from './components/Pages/Register';
 import ScrollToTop from './components/Common/ScrollToTop';
+import Playground from './components/Pages/Playground';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Route>
+        <Route path="/playground" element={<Playground />} />
       </Routes>
     </BrowserRouter>
   );

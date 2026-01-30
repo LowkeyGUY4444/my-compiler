@@ -1,4 +1,5 @@
 import { FaPlay } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 export default function CTASection() {
     return (
@@ -6,10 +7,10 @@ export default function CTASection() {
             <h2 className="text-white text-3xl md:text-[32px] font-bold mb-8">
                 Ready to compile your first Code?
             </h2>
-            <button className="flex items-center justify-center gap-2 bg-white text-[#0F172A] px-8 py-3 rounded-lg font-bold">
+            <Link to="/playground" className="flex items-center justify-center gap-2 bg-white text-[#0F172A] px-8 py-3 rounded-lg font-bold">
                 <FaPlay />
                 <span>Start Coding</span>
-            </button>
+            </Link>
         </section>
     );
 }

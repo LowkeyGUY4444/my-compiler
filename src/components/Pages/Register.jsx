@@ -29,7 +29,7 @@ const Register = () => {
 
             <main className="flex-grow flex items-center justify-center p-6 z-10">
                 <div className="w-full max-w-[480px] bg-[#1E293B] border border-[#334155] rounded-[16px] shadow-2xl p-10">
-                    <h1 className="text-3xl font-bold text-white mb-2">Join CodeVerse</h1>
+                    <h1 className="text-3xl font-bold text-white mb-2">Join CodeEngine</h1>
                     <p className="text-[#94A3B8] text-sm mb-8">Start solving problems and climbing the leaderboard.</p>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
