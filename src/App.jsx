@@ -7,6 +7,7 @@ import Login from './components/Pages/Login';
 import Register from './components/Pages/Register';
 import ScrollToTop from './components/Common/ScrollToTop';
 import Playground from './components/Pages/Playground';
+import Contests from './components/Pages/contests';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="register" element={<Register />} />
         </Route>
         <Route path="/playground" element={<Playground />} />
+        <Route path="/contests" element={<Contests />} />
       </Routes>
     </BrowserRouter>
   );

@@ -4,7 +4,7 @@ export default function Footer() {
             <div className="max-w-7xl mx-auto w-full px-10 flex justify-between items-center text-[#64748B] text-sm">
                 {/* Left Content */}
                 <div>
-                    © 2024 <span className="text-white font-semibold">CodeEngine</span> Inc.
+                    © 2026 <span className="text-white font-semibold">CodeEngine</span> Inc.
                 </div>
 
                 {/* Right Content */}

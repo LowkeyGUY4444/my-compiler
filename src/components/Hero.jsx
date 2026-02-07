@@ -7,7 +7,7 @@ export default function Hero() {
         <section className="bg-[#0F172A] min-h-[500px] flex items-center px-10 py-20">
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
                 <div>
-                    <span className="bg-blue-500/10 text-[#60A5FA] px-3 py-1 rounded-full text-xs font-medium">New: Python 3.11 Support</span>
+                    <span className="bg-blue-500/10 text-[#60A5FA] px-3 py-1 rounded-full text-xs font-medium">New: Java 15.0.2 Support</span>
                     <h1 className="text-6xl font-black text-white mt-4 leading-tight">Compile, Run, and Deploy.</h1>
                     <p className="text-[#94A3B8] text-lg mt-6 max-w-lg">Master algorithms with our next-gen online judge. Support for 40+ languages and real-time feedback.</p>
                     <div className="mt-10 flex space-x-4">

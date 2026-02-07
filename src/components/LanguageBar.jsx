@@ -3,20 +3,20 @@ import {
   SiOpenjdk,
   SiCplusplus,
   SiJavascript,
-  SiGo,
-  SiRust,
-  SiRuby
 } from "react-icons/si";
+import { FaJava, FaC } from "react-icons/fa6";
 
 export default function LanguageBar() {
   const languages = [
-    { name: "Python", icon: <SiPython className="text-[#3776AB]" /> },
-    { name: "Java", icon: <SiOpenjdk className="text-[#007396]" /> },
+    { name: "C", icon: <FaC className="text-[#00599C]" /> },
     { name: "C++", icon: <SiCplusplus className="text-[#00599C]" /> },
+    { name: "Python", icon: <SiPython className="text-[#3776AB]" /> },
     { name: "JavaScript", icon: <SiJavascript className="text-[#F7DF1E]" /> },
-    { name: "Go", icon: <SiGo className="text-[#00ADD8]" /> },
-    { name: "Rust", icon: <SiRust className="text-[#000000] dark:text-white" /> },
-    { name: "Ruby", icon: <SiRuby className="text-[#CC342D]" /> },
+    {
+      name: "Java",
+      icon: <FaJava className={`text-[#f89820] text-3xl`} />
+    },
+
   ];
 
   return (
@@ -25,7 +25,7 @@ export default function LanguageBar() {
         <span className="text-[#64748B] text-xs font-semibold uppercase tracking-widest whitespace-nowrap">
           Supported Technologies:
         </span>
-        <div className="flex space-x-30 items-center">
+        <div className="flex space-x-45 items-center">
           {languages.map((lang) => (
             <div
               key={lang.name}
