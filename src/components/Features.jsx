@@ -16,7 +16,7 @@ export default function Features() {
         },
         {
             title: "Deep Analytics",
-            desc: "Visualize your code performance, memory usage, and compare with other solutions.",
+            desc: "Visualize your code, gives it a score, and which help for fair leaderboard glory.",
             icon: <ChartBarIcon className="h-8 w-8 text-green-400" />,
         }
     ];

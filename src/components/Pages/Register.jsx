@@ -5,7 +5,6 @@ const Register = () => {
     const [formData, setFormData] = useState({ username: '', email: '', password: '' });
 
     const handleUsernameChange = (e) => {
-        // This Regex removes any numeric digits (0-9)
         const value = e.target.value.replace(/[0-9]/g, '');
         setFormData({ ...formData, username: value });
     };

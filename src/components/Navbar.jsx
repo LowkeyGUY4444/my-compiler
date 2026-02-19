@@ -21,7 +21,6 @@ export default function Navbar() {
                     <Link to="/playground" className="hover:text-white">Playground</Link>
                 </div>
 
-                {/* Profile Icon */}
                 <div className="flex items-center">
                     <button
                         onClick={() => setIsOpen(true)}
@@ -32,7 +31,6 @@ export default function Navbar() {
                 </div>
             </nav>
 
-            {/* Sidebar Overlay */}
             {isOpen && (
                 <div
                     className="fixed inset-0 bg-black/50 z-[60]"
@@ -40,7 +38,6 @@ export default function Navbar() {
                 ></div>
             )}
 
-            {/* Sidebar Content */}
             <div className={`fixed top-0 right-0 h-full w-80 bg-[#1E293B] z-[70] shadow-2xl transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 <div className="p-6">
                     <div className="flex justify-between items-center mb-10">

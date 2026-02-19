@@ -8,6 +8,8 @@ import Register from './components/Pages/Register';
 import ScrollToTop from './components/Common/ScrollToTop';
 import Playground from './components/Pages/Playground';
 import Contests from './components/Pages/contests';
+import Problems from './components/Pages/Problems';
+import Ranking from './components/Pages/Ranking';
 
 const App = () => {
   return (
@@ -23,6 +25,8 @@ const App = () => {
         </Route>
         <Route path="/playground" element={<Playground />} />
         <Route path="/contests" element={<Contests />} />
+        <Route path="/problems" element={<Problems />} />
+        <Route path='/leaderboard' element={<Ranking />} />
       </Routes>
     </BrowserRouter>
   );

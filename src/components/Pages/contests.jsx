@@ -5,11 +5,11 @@ import { toast } from 'sonner';
 
 const ProblemWorkspace = () => {
     const starterCode = {
-        "c": "// Implement Two Sum in C\n#include <stdio.h>\nint main() {\n  printf(\"[0, 1]\");\n  return 0;\n}",
-        "c++": "// Implement Two Sum in C++\n#include <iostream>\nint main() {\n  std::cout << \"[0, 1]\";\n  return 0;\n}",
-        "python": "def two_sum(nums, target):\n    # Your code here\n    return [0, 1]\n\n# Match the expected output exactly: [0, 1]\nprint(two_sum([2, 7, 11, 15], 9))",
-        "javascript": "function twoSum(nums, target) {\n    // Your code here\n    return [0, 1];\n};\n\nconsole.log(JSON.stringify(twoSum([2, 7, 11, 15], 9)));",
-        "java": "class Main {\n    public static void main(String[] args) {\n        System.out.println(\"[0, 1]\");\n    }\n}"
+        "c": "// write your code here\n",
+        "c++": "// write your code here\n",
+        "python": "# write your code here\n",
+        "javascript": "//write your code here\n",
+        "java": "//write your code here\n"
     };
 
     const languageMap = {
@@ -35,6 +35,7 @@ const ProblemWorkspace = () => {
 
     const lineNumbers = session.code.split('\n').length;
 
+    // Timer Logic: yesle track garxa how long the user takes to solve the challenge
     useEffect(() => {
         if (isTimerRunning) {
             timerRef.current = setInterval(() => setSeconds(prev => prev + 1), 1000);
@@ -56,77 +57,84 @@ const ProblemWorkspace = () => {
         if (!isTimerRunning) setIsTimerRunning(true);
     };
 
-    // 1. RUN CODE: Basic execution
+    // 1. RUN CODE: Basic execution via  backend..............................
     const runCode = async () => {
+        const runPayload = {
+            code: session.code,
+            language: session.language,
+            stdin: "2 7 11 15 9"
+        };
+
+        console.log("Payload to Backend:", runPayload);
+
         setIsLoading(true);
         setSession(prev => ({ ...prev, output: "Compiling and Running..." }));
 
         try {
-            const response = await fetch("http://localhost:2358/submissions?wait=true", {
+            const response = await fetch("URL", {//  URL yata hal
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    source_code: session.code,
-                    language_id: languageMap[session.language].id,
-                    stdin: "2 7 11 15 9",
-                    redirect_stderr_to_stdout: true // Combines errors and output for easier debugging
-                }),
+                body: JSON.stringify(runPayload),
             });
 
             const data = await response.json();
+            console.log("RUN - Response:", data);
+
             const output = data.stdout || data.stderr || data.compile_output || "Execution finished with no output.";
             setSession(prev => ({ ...prev, output: output }));
             toast.success("Run complete");
         } catch (error) {
-            setSession(prev => ({ ...prev, output: "Error: Local Judge0 is not reachable." }));
-            toast.error("Check if Docker is running");
+            toast.error("Backend unreachable");
+            setSession(prev => ({ ...prev, output: "> Error: Failed to connect to your Node.js server." }));
         } finally {
             setIsLoading(false);
         }
     };
 
-    // 2. SUBMIT CODE: Advanced Grading
+    // 2. SUBMIT CODE: Final Grading via your backend
     const handleSubmit = async () => {
+        const submitPayload = {
+            title: "Two Sum",
+            code: session.code,
+            language: session.language,
+            timeTaken: seconds,
+            expectedOutput: "[0, 1]"
+        };
+
+        console.log("🏆 [CONTEST] SUBMIT - Payload to Backend:", submitPayload);
+
         setIsSubmitting(true);
         setIsTimerRunning(false);
         setSession(prev => ({ ...prev, output: "Judging Submission..." }));
 
         try {
-            const response = await fetch("http://localhost:2358/submissions?wait=true", {
+            const response = await fetch("URL", { // Code save garne backend URL yata hal
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    source_code: session.code,
-                    language_id: languageMap[session.language].id,
-                    stdin: "2 7 11 15 9",
-                    expected_output: "[0, 1]", // The hidden answer
-                    cpu_time_limit: 5, // Prevents infinite loops from crashing your PC
-                    memory_limit: 128000
-                }),
+                body: JSON.stringify(submitPayload),
             });
 
             const data = await response.json();
+            console.log("[CONTEST] SUBMIT - Response:", data);
 
-            // Status ID 3 is "Accepted"
-            if (data.status.id === 3) {
+            //Judge0 status yata bata handle hunxa backend bata
+            if (data.status?.id === 3) { //  yadi accepted hunxa vane?????
                 setSession(prev => ({
                     ...prev,
-                    output: `> STATUS: ${data.status.description}\n> SCORE: 100/100\n> EXECUTION TIME: ${data.time}s`
+                    output: `> STATUS: ${data.status.description}\n> SCORE: 100/100\n> TIME: ${data.time}s\n> SOLVED IN: ${formatTime(seconds)}`
                 }));
-                toast.success("Passed all test cases!");
-            } else if (data.status.id === 13) {
-                // Specific handling for Internal Error
-                setSession(prev => ({ ...prev, output: "> INTERNAL ERROR\n> Fix: Ensure .wslconfig is set to cgroup v1 and restart." }));
-                toast.error("Sandbox Error: Restart WSL");
+                toast.success("Accepted: 100/100!");
             } else {
                 setSession(prev => ({
                     ...prev,
-                    output: `> STATUS: ${data.status.description}\n> SCORE: 0/100\n${data.stdout || data.stderr || ""}`
+                    output: `> STATUS: ${data.status?.description || 'Error'}\n> SCORE: 0/100\n${data.stdout || data.stderr || ""}`
                 }));
-                toast.error(`Submission: ${data.status.description}`);
+                toast.error(`Failed: ${data.status?.description}`);
+                setIsTimerRunning(true); //  natra resume timer to let them fix it
             }
         } catch (error) {
-            setSession(prev => ({ ...prev, output: "Judgment Error: Connection lost." }));
+            toast.error("Submission failed");
+            setIsTimerRunning(true);
         } finally {
             setIsSubmitting(false);
         }
@@ -141,7 +149,7 @@ const ProblemWorkspace = () => {
                     </Link>
                     <div className="flex flex-col">
                         <span className="text-white font-bold text-lg leading-tight">Challenge: Two Sum</span>
-                        <span className="text-[10px] text-[#3B82F6] font-bold tracking-[0.2em] uppercase">Local Judging Engine</span>
+                        <span className="text-[10px] text-[#3B82F6] font-bold tracking-[0.2em] uppercase">Backend Judging Mode</span>
                     </div>
                 </div>
 
@@ -167,11 +175,11 @@ const ProblemWorkspace = () => {
                 <section className="w-[30%] bg-[#1E293B]/20 border-r border-[#334155] p-8 overflow-y-auto">
                     <h2 className="text-white font-bold text-xl mb-6">Task</h2>
                     <p className="text-[#94A3B8] text-sm leading-relaxed mb-8">
-                        Complete the function so that it returns the indices of two numbers that add up to a specific target.
+                        Complete the function so that it will add the following array.
                     </p>
                     <div className="bg-[#020617] p-4 rounded border border-[#334155] font-mono text-xs">
-                        <span className="text-gray-500 mb-1 block">// Input Format</span>
-                        <span className="text-white">nums = [2, 7, 11, 15], target = 9</span>
+                        <span className="text-gray-500 mb-1 block"></span>
+                        <span className="text-white">nums = [2, 7, 11, 15]</span>
                     </div>
                 </section>
 
