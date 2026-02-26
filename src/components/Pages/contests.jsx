@@ -1,9 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { HiOutlinePlay, HiOutlineCheckCircle, HiOutlineCommandLine, HiOutlineArrowLeft } from "react-icons/hi2";
+import { HiOutlinePlay, HiOutlineCheckCircle, HiOutlineCommandLine, HiOutlineArrowLeft, HiOutlineExclamationTriangle } from "react-icons/hi2";
 import { toast } from 'sonner';
 
 const ProblemWorkspace = () => {
+    // New State for Contest Lifecycle
+    const [isContestLive, setIsContestLive] = useState(true);
+
+    // Fetch live status from backend on load
+    useEffect(() => {
+        const checkStatus = async () => {
+            try {
+                const response = await fetch("http://localhost:5000/api/admin/contest-status");
+                const data = await response.json();
+                setIsContestLive(data.live); // This matches your Admin.jsx PATCH request
+            } catch (error) {
+                console.error("Status check failed");
+            }
+        };
+        checkStatus();
+    }, []);
+
     const starterCode = {
         "c": "// write your code here\n",
         "c++": "// write your code here\n",
@@ -35,7 +52,6 @@ const ProblemWorkspace = () => {
 
     const lineNumbers = session.code.split('\n').length;
 
-    // Timer Logic: yesle track garxa how long the user takes to solve the challenge
     useEffect(() => {
         if (isTimerRunning) {
             timerRef.current = setInterval(() => setSeconds(prev => prev + 1), 1000);
@@ -57,29 +73,21 @@ const ProblemWorkspace = () => {
         if (!isTimerRunning) setIsTimerRunning(true);
     };
 
-    // 1. RUN CODE: Basic execution via  backend..............................
     const runCode = async () => {
         const runPayload = {
             code: session.code,
             language: session.language,
             stdin: "2 7 11 15 9"
         };
-
-        console.log("Payload to Backend:", runPayload);
-
         setIsLoading(true);
         setSession(prev => ({ ...prev, output: "Compiling and Running..." }));
-
         try {
-            const response = await fetch("URL", {//  URL yata hal
+            const response = await fetch("http://localhost:5000/api/contest/run", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(runPayload),
             });
-
             const data = await response.json();
-            console.log("RUN - Response:", data);
-
             const output = data.stdout || data.stderr || data.compile_output || "Execution finished with no output.";
             setSession(prev => ({ ...prev, output: output }));
             toast.success("Run complete");
@@ -91,7 +99,6 @@ const ProblemWorkspace = () => {
         }
     };
 
-    // 2. SUBMIT CODE: Final Grading via your backend
     const handleSubmit = async () => {
         const submitPayload = {
             title: "Two Sum",
@@ -100,25 +107,17 @@ const ProblemWorkspace = () => {
             timeTaken: seconds,
             expectedOutput: "[0, 1]"
         };
-
-        console.log("🏆 [CONTEST] SUBMIT - Payload to Backend:", submitPayload);
-
         setIsSubmitting(true);
         setIsTimerRunning(false);
         setSession(prev => ({ ...prev, output: "Judging Submission..." }));
-
         try {
-            const response = await fetch("URL", { // Code save garne backend URL yata hal
+            const response = await fetch("http://localhost:5000/api/contest/submit", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(submitPayload),
             });
-
             const data = await response.json();
-            console.log("[CONTEST] SUBMIT - Response:", data);
-
-            //Judge0 status yata bata handle hunxa backend bata
-            if (data.status?.id === 3) { //  yadi accepted hunxa vane?????
+            if (data.status?.id === 3) {
                 setSession(prev => ({
                     ...prev,
                     output: `> STATUS: ${data.status.description}\n> SCORE: 100/100\n> TIME: ${data.time}s\n> SOLVED IN: ${formatTime(seconds)}`
@@ -130,7 +129,7 @@ const ProblemWorkspace = () => {
                     output: `> STATUS: ${data.status?.description || 'Error'}\n> SCORE: 0/100\n${data.stdout || data.stderr || ""}`
                 }));
                 toast.error(`Failed: ${data.status?.description}`);
-                setIsTimerRunning(true); //  natra resume timer to let them fix it
+                setIsTimerRunning(true);
             }
         } catch (error) {
             toast.error("Submission failed");
@@ -140,6 +139,21 @@ const ProblemWorkspace = () => {
         }
     };
 
+    // 1. CONDITIONAL RETURN: Logic to show "No Contest"
+    if (!isContestLive) {
+        return (
+            <div className="h-screen w-full bg-[#0F172A] flex flex-col items-center justify-center p-10 text-center">
+                <div className="bg-[#1E293B]/20 border border-[#334155] p-12 rounded-3xl max-w-lg shadow-2xl backdrop-blur-sm">
+                    <HiOutlineExclamationTriangle size={80} className="text-yellow-500/50 mx-auto mb-6" />
+                    <h1 className="text-3xl font-black text-white mb-4 tracking-tighter">No contest available now</h1>
+                    <p className="text-[#94A3B8] leading-relaxed">The admin has ended the previous contest. Please check back later for the next challenge or explore the problems section.</p>
+                    <Link to="/" className="mt-8 inline-block bg-white text-[#0F172A] px-10 py-3 rounded-xl font-bold hover:bg-gray-200 transition-all">Back to Home</Link>
+                </div>
+            </div>
+        );
+    }
+
+    // 2. DEFAULT RETURN: Your existing UI
     return (
         <div className="h-screen w-full bg-[#0F172A] text-[#CBD5E1] font-inter flex flex-col overflow-hidden">
             <nav className="min-h-[64px] border-b border-[#334155] bg-[#1E293B]/50 flex items-center justify-between px-8 shrink-0 relative">
@@ -178,7 +192,6 @@ const ProblemWorkspace = () => {
                         Complete the function so that it will add the following array.
                     </p>
                     <div className="bg-[#020617] p-4 rounded border border-[#334155] font-mono text-xs">
-                        <span className="text-gray-500 mb-1 block"></span>
                         <span className="text-white">nums = [2, 7, 11, 15]</span>
                     </div>
                 </section>

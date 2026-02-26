@@ -10,6 +10,7 @@ import Playground from './components/Pages/Playground';
 import Contests from './components/Pages/contests';
 import Problems from './components/Pages/Problems';
 import Ranking from './components/Pages/Ranking';
+import AdminPage from './components/Pages/AdminPage';
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/contests" element={<Contests />} />
         <Route path="/problems" element={<Problems />} />
         <Route path='/leaderboard' element={<Ranking />} />
+        <Route path='/admin' element={<AdminPage />} />
       </Routes>
     </BrowserRouter>
   );

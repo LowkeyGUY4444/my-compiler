@@ -16,7 +16,7 @@ export default function Navbar() {
                 </Link>
 
                 <div className="hidden md:flex space-x-8 text-[#94A3B8] font-medium">
-                    <Link to="/problems" className="hover:text-white">Problems</Link>
+                    <Link to="/problems" className="hover:text-white">Learning Resources</Link>
                     <Link to="/contests" className="hover:text-white">Contests</Link>
                     <Link to="/playground" className="hover:text-white">Playground</Link>
                 </div>
@@ -54,6 +54,13 @@ export default function Navbar() {
                             className="w-full py-3 text-center text-white border border-[#334155] rounded-lg font-semibold hover:bg-white/5 transition-all"
                         >
                             Log in
+                        </Link>
+                        <Link
+                            to="/admin"
+                            onClick={closeSidebar}
+                            className="w-full py-3 text-center text-white border border-[#334155] rounded-lg font-semibold hover:bg-white/5 transition-all"
+                        >
+                            Admin
                         </Link>
                     </div>
 
