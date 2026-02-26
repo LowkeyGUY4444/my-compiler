@@ -11,6 +11,7 @@ import Contests from './components/Pages/contests';
 import Problems from './components/Pages/Problems';
 import Ranking from './components/Pages/Ranking';
 import AdminPage from './components/Pages/AdminPage';
+import AllCodes from './components/Pages/AllCode';
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/contests" element={<Contests />} />
         <Route path="/problems" element={<Problems />} />
         <Route path='/leaderboard' element={<Ranking />} />
+        <Route path='/all-codes' element={<AllCodes />} />
         <Route path='/admin' element={<AdminPage />} />
       </Routes>
     </BrowserRouter>

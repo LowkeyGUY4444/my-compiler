@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function ProblemList() {
     const problems = [
         { id: 1, title: "Two Sum", Lan: "Python", color: "text-green-500", bg: "bg-green-500/10" },
@@ -10,7 +12,7 @@ export default function ProblemList() {
             <div className="max-w-7xl mx-auto px-10">
                 <div className="flex justify-between items-end mb-10">
                     <h2 className="text-3xl font-bold text-white">Your Recent Code</h2>
-                    <a href="#" className="text-[#3B82F6] font-medium hover:underline">View All &rarr;</a>
+                    <Link to="/all-codes" className="text-[#3B82F6] font-medium hover:underline">View All &rarr;</Link>
                 </div>
                 <div className="overflow-hidden rounded-xl border border-[#334155]">
                     <table className="w-full text-left border-collapse">
