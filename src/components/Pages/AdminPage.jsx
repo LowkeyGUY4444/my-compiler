@@ -268,7 +268,7 @@ const AdminDashboard = () => {
                             <input value={resourceData.docLink} onChange={(e) => setResourceData({ ...resourceData, docLink: e.target.value })} className="w-full bg-[#020617] border border-[#334155] rounded-lg p-3 outline-none focus:border-blue-500" placeholder="Documentation Link (URL)" required />
                             <input value={resourceData.videoLink} onChange={(e) => setResourceData({ ...resourceData, videoLink: e.target.value })} className="w-full bg-[#020617] border border-[#334155] rounded-lg p-3 outline-none focus:border-blue-500" placeholder="Video Tutorial Link (YouTube URL)" required />
                             <button type="submit" className="w-full bg-white text-[#0F172A] font-bold py-4 rounded-xl hover:bg-gray-200 transition-all flex items-center justify-center gap-2">
-                                <HiOutlineDocumentText /> Add to Problem.jsx
+                                <HiOutlineDocumentText /> Add
                             </button>
                         </form>
                     </section>

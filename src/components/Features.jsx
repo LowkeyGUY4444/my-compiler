@@ -1,7 +1,5 @@
 import { BoltIcon, GlobeAltIcon, ChartBarIcon } from '@heroicons/react/24/outline';
 import { GiStopwatch } from "react-icons/gi";
-
-
 export default function Features() {
     const features = [
         {
@@ -20,7 +18,6 @@ export default function Features() {
             icon: <ChartBarIcon className="h-8 w-8 text-green-400" />,
         }
     ];
-
     return (
         <section className="py-24 bg-[#0F172A]">
             <div className="max-w-7xl mx-auto px-10">

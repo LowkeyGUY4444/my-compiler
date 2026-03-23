@@ -22,7 +22,7 @@ export default function AllCodes() {
                 const data = await response.json();
 
                 // DEBUG: Check what your MongoDB is sending
-                console.log("💾 Received Saved Codes:", data);
+                console.log(" Received Saved Codes:", data);
                 setSavedCodes(data);
             } catch (error) {
                 console.error("Fetch failed:", error);
@@ -100,8 +100,7 @@ export default function AllCodes() {
                                 <th className="px-6 py-4">Language</th>
                                 <th className="px-6 py-4">Solving Time</th>
                                 <th className="px-6 py-4 text-right">Options</th>
-                            </tr>
-                        </thead>
+                            </tr>                         </thead>
                         <tbody className="divide-y divide-[#334155]">
                             {isLoading ? (
                                 <tr>
